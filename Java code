@@ -1,0 +1,35 @@
+class Solution {
+  \\matching the phone number with the respective alphabents on the typing pad
+  Map<String, String> phone = new HashMap<String, String>() {{
+    put("2", "abc");
+    put("3", "def");
+    put("4", "ghi");
+    put("5", "jkl");
+    put("6", "mno");
+    put("7", "pqrs");
+    put("8", "tuv");
+    put("9", "wxyz");
+  }};
+List<String> output = new ArrayList<String>();
+    
+    public void backtrack(String sequence,String digits){
+    \\if there are no digits left then add the sequence to the output
+        if(digits.length()==0){output.add(sequence);}
+        else{
+        
+            String currstring=digits.substring(0,1);
+            \\for every alphabet referenced from the respective number keep on appending the sequence untill the digits become length 0
+            for(int i=0;i<(phone.get(currstring)).length();i++){
+                String currentstr=(phone.get(currstring)).substring(i,i+1);
+                backtrack(sequence+currentstr,digits.substring(1));
+            }
+            
+        }
+    }
+
+  public List<String> letterCombinations(String digits) {
+    if (digits.length() != 0)
+      backtrack("", digits);
+    return output;
+  }
+}
